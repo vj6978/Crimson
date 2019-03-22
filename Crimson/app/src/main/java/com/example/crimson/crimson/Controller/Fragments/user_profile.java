@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.example.crimson.crimson.Controller.BuilderClasses.SubMaker;
 import com.example.crimson.crimson.Controller.BuilderClasses.UserDetails;
 import com.example.crimson.crimson.Model.DAO;
 import com.example.crimson.crimson.R;
@@ -35,6 +36,7 @@ public class user_profile extends Fragment {
 
     public UserDetails userDetails_object;
 
+
     private EditText nameOfUser;
     private EditText ageOfUser;
     private EditText occupationOfUser;
@@ -54,6 +56,7 @@ public class user_profile extends Fragment {
     private String user_identifier;
     private String checker;
     private String subsType;
+
 
     private boolean userType;
     private boolean flag;
@@ -127,9 +130,23 @@ public class user_profile extends Fragment {
 
                     if(userType)
                     {
-                        userDetails_object = new UserDetails.Builder().setNameOfUser(nameOfUserString).setAgeOfUser(ageOfUserString)
-                                .setOccupationOfUser(occupationOfUserString).setAnnualIncomeOfUser(annualIncomeOfUserString).setUserType(Boolean.toString(userType))
-                                .setUserSubsType(subsType).setUserIdentifier(user_identifier).create();
+                        SubMaker subMaker= new SubMaker(nameOfUserString,ageOfUserString,occupationOfUserString,annualIncomeOfUserString,userType,user_identifier);
+                        if (subsType == "Silver")
+                        {
+                            userDetails_object=subMaker.makeSilver();
+
+                        }
+                        else if (subsType == "Gold")
+                        {
+                            userDetails_object=subMaker.makeGold();
+                        }
+                        else
+                        {
+                            userDetails_object=subMaker.makeDiamond();
+                        }
+//                        userDetails_object = new UserDetails.Builder().setNameOfUser(nameOfUserString).setAgeOfUser(ageOfUserString)
+//                                .setOccupationOfUser(occupationOfUserString).setAnnualIncomeOfUser(annualIncomeOfUserString).setUserType(Boolean.toString(userType))
+//                                .setUserSubsType(subsType).setUserIdentifier(user_identifier).create();
 
 
                         pushToDb();
