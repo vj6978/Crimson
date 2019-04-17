@@ -40,6 +40,8 @@ public class Report extends Fragment {
     public OriginatorWidget originatorWidget;
     public Caretaker caretaker;
 
+    public PluggableAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -94,7 +96,9 @@ public class Report extends Fragment {
                     remoteControl.buttonPressed();
 
                     try {
-                        Util.makeToast(parentHolder.getContext(), new PluggableAdapter(new ExcelReport()).generateReport()).show();
+                        adapter = new PluggableAdapter(new ExcelReport());
+                        adapter.createReport();
+                        Util.makeToast(parentHolder.getContext(), adapter.method.invoke(adapter.adapt).toString()).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -106,7 +110,9 @@ public class Report extends Fragment {
                     remoteControl.buttonPressed();
 
                     try {
-                        Util.makeToast(parentHolder.getContext(), new PluggableAdapter(new PDFReport()).generateReport()).show();
+                        adapter = new PluggableAdapter(new PDFReport());
+                        adapter.createReport();
+                        Util.makeToast(parentHolder.getContext(), adapter.method.invoke(adapter.adapt).toString()).show();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

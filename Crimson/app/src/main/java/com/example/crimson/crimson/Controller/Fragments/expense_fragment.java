@@ -13,6 +13,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Button;
 
+import com.example.crimson.crimson.Controller.Interceptor.DataInterceptor;
+import com.example.crimson.crimson.Controller.Interceptor.InterceptorApplication;
 import com.example.crimson.crimson.Controller.Interceptor.InterceptorDriver;
 import com.example.crimson.crimson.Controller.PieChartUpdate;
 import com.example.crimson.crimson.Interfaces.Observer;
@@ -91,8 +93,12 @@ public class expense_fragment extends Fragment implements Subject {
 
         //Creating the Concrete Framework
 
-        InterceptorDriver interceptor = new InterceptorDriver();
-        this.register(interceptor);
+        InterceptorDriver interceptorDriver = new InterceptorDriver();
+        this.register(interceptorDriver);
+
+        //Create Application
+        InterceptorApplication application = new InterceptorApplication();
+        application.attachInterceptor(new DataInterceptor());
 
         //Concrete Framework is an observer of expense_fragment. An event triggers the concrete framework.
 

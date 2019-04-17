@@ -1,5 +1,10 @@
 package com.example.crimson.crimson.PluggableAdapter;
 
 public interface IPDFReport {
-        public String makenoise();
+        //Adaptee Interface
+
+        public String generate();
 }
+
+
+

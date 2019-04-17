@@ -24,7 +24,7 @@ public class Util {
 
     public static String getIp()
     {
-        return "http://10.52.53.9";
+        return "http://10.53.113.147";
     }
 
 

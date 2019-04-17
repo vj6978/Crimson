@@ -2,19 +2,21 @@ package com.example.crimson.crimson.PluggableAdapter;
 
 import java.lang.reflect.Method;
 
-public class PluggableAdapter
+public class PluggableAdapter implements IReport
 {
     public Object adapt;
+    public Method method;
 
     public PluggableAdapter(Object adapt)
     {
         this.adapt = adapt;
     }
 
-    public String generateReport() throws Exception {
+    @Override
+    public void createReport() throws Exception {
         Class c = this.adapt.getClass();
-        Method method = c.getDeclaredMethod("makenoise");
+        this.method = c.getDeclaredMethod("generate");
 
-        return method.invoke(this.adapt).toString();
     }
 }
+

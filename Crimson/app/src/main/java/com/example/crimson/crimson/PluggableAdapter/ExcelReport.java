@@ -4,7 +4,8 @@ import android.util.Log;
 
 public class ExcelReport implements IExcelReport
 {
-    public String makenoise()
+    @Override
+    public String generate()
     {
         return "Downloading Excel Report!";
     }

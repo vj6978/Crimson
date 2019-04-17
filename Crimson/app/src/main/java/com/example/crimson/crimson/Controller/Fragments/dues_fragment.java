@@ -15,6 +15,8 @@ import com.example.crimson.crimson.Controller.BuilderClasses.OneTimeStrategy;
 import com.example.crimson.crimson.Controller.BuilderClasses.PeriodicStrategy;
 import com.example.crimson.crimson.Controller.BuilderClasses.Sample;
 import com.example.crimson.crimson.Controller.BuilderClasses.StrategyContext;
+import com.example.crimson.crimson.Controller.ServiceLocator.Service;
+import com.example.crimson.crimson.Controller.ServiceLocator.ServiceLocator;
 import com.example.crimson.crimson.Model.DAO;
 import com.example.crimson.crimson.PluggableAdapter.PluggableAdapter;
 import com.example.crimson.crimson.R;
@@ -50,6 +52,8 @@ public class dues_fragment extends Fragment
     public static boolean due_push_task_flag=false;
     public static Task<Void> due_push_task;
 
+    public Service service;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -61,6 +65,8 @@ public class dues_fragment extends Fragment
         handler = new Handler();
 
         mDbRef = FirebaseDatabase.getInstance().getReference();
+
+        service = ServiceLocator.getService("notifyDueService");
 
         duesCategorySpinner = (Spinner)parentHolder.findViewById(R.id.dues_period_spinner);
         dueAmount = (EditText)parentHolder.findViewById(R.id.duesAmount);
@@ -92,7 +98,7 @@ public class dues_fragment extends Fragment
 
                         DAO.pushDues(sc.executeStrategy(dueSingleton), mDbRef, duesCategorySpinnerString);
 
-
+                        service.service(sc.executeStrategy(dueSingleton), mDbRef, "");
                     }
 
                     else if (duesCategorySpinnerString.equals("Periodic")) {
